@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Landing Page</title>
+<link rel="icon" type="image/png" href="favi.png">
+<style>
+@import url(http://fonts.googleapis.com/css?family=Tangerine|Play|Armata|Merriweather+Sans|Righteous|Exo|Coming+Soon|Monda|Architects+Daughter|Comfortaa|Hammersmith+One|Istok+Web|Bangers|Open+Sans);
+
+#left{
+   background:url(lf.png); background-position:center; background-repeat:no-repeat; background-size:contain;
+}
+#right{
+   background:url(rt.png); background-position:center; background-repeat:no-repeat; background-size:contain;
+}
+
+#holder_left{
+    float: right; width:38%; margin-right:10%; height:px; 
+}
+#footer{
+    float: left; width:100%; margin-top:px; height:1400px;
+}
+#how_does_it_work{
+    float: left; width:100%; margin-top:px; padding:20px 0px 20px 0px; text-align: center; font-size: 30px;
+    font-family: play;
+}
+.fixed {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 50%;
+    height: 600px;
+}
+.notFixed {
+    float: left; width:50%; margin-top:px; height:600px; margin-right:50%; 
+     
+}
+.cell{
+    float:; width:333px; height: 600px; margin-left:auto; margin-right: auto; padding-top: 10px;
+    background:url(cell2.png); background-position:center; background-repeat:no-repeat; background-size:contain;
+}
+.inline{
+    float:; width:219px; height: 400px; margin:70px auto 50px auto;
+    border: 1px solid #222222;
+    background:url(bg.png); background-position:0 0; background-repeat:no-repeat; background-size:;
+}
+.head{
+    float:left; width:100%; padding:10px 0px 10px 0px; font-size:22px; text-align: center; font-family: coming soon;
+    margin-top:200px;
+}
+.body{
+    float:left; width:98%; padding:10px 1% 10px 1%; font-size:16px; font-family: coming soon;
+}
+</style>
+
+<script src="J-1.1.2.js"></script>
+<script>
+
+//*
+
+$j().pageSet(function() {
+    var clic = 0;
+    var windowH = $j().windowHeight("screen");
+    var offsetH = windowH - 10;
+    $j("#vid").attribute("height",offsetH);
+    var index = {"0":0,"1":0,"2":0,"3":0,"4":0,"5":0}, float = 100 / 5;
+    var index1 = {"0":0,"1":0,"2":0,"3":0,"4":0,"5":0}
+    var direct = {"0":[],"1":[],"2":[],"3":[],"4":[],"5":[]}
+    var sources = ["mp4/Morning-Routine.mp4","mp4/In-And-Out.mp4","mp4/Android-Scroll.mp4"];
+    var si = 0;
+    //Up or Down Direction indicator
+    function direction(A){
+        if(A.length >= 2){
+            var NA = [A[A.length - 2], A[A.length - 1],]
+            return NA;
+        }else{
+            return A
+        }
+    }
+    // Video Loop
+    $j("#vid").after("ended", function(){
+        si++;
+        if(si >= sources.length){
+            si = 0;
+        }
+        var vid0 = document.getElementById("vid"); 
+        //var vid = $j(this).sanitize();
+        vid0.src = sources[si];
+        vid0.play();
+    })
+    //* Scroll
+    $j(document).after("scroll",function(){
+        var scroll = $j(this).SCROLL();
+        var Y = scroll.y - windowH - 100
+        var b0 = $j("#holder_left[0]").borders();
+        var b1 = $j("#holder_left[2]").borders();
+        var b2 = $j("#holder_left[4]").borders();
+        var b3 = $j("#holder_left[6]").borders();
+        var b4 = $j("#holder_left[8]").borders();
+        var b5 = $j("#holder_left[10]").borders();
+
+        direct[0].push(b0.top);
+        direct[0] = direction(direct[0]);
+        direct[1].push(b1.top);
+        direct[1] = direction(direct[1]);
+        direct[2].push(b2.top);
+        direct[2] = direction(direct[2]);
+        direct[3].push(b3.top);
+        direct[3] = direction(direct[3]);
+        direct[4].push(b4.top);
+        direct[4] = direction(direct[4]);
+        direct[5].push(b5.top);
+        direct[5] = direction(direct[5]);
+        
+        //Scroll Init
+        if(scroll.y >= offsetH && scroll.y < 3400){            
+            $j("#holder").class("remove","notFixed").class("add","fixed");
+            //Scroll Up
+            if(direct[0][0] > direct[0][1]){
+                if(b0.top <= 0 && index[0] == 0){
+                    var by = float * 1
+                    index[0] = by;
+                    index1[0] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{0:"0 0",100:by+"% 0"}})
+                }
+                if(b1.top <= 0 && index[1] == 0){
+                    var by = float * 2
+                    index[1] = by;
+                    index1[1] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{0:index[0]+"% 0",100:by+"% 0"}})
+                }
+                if(b2.top <= 0 && index[2] == 0){
+                    var by = float * 3
+                    index[2] = by;
+                    index1[2] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{0:index[1]+"% 0",100:by+"% 0"}})
+                }
+                if(b3.top <= 0 && index[3] == 0){
+                    var by = float * 4
+                    index[3] = by;
+                    index1[3] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{0:index[2]+"% 0",100:by+"% 0"}})
+                }
+                if(b4.top <= 0 && index[4] == 0){
+                    var by = float * 5
+                    index[4] = by;
+                    index1[4] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{0:index[3]+"% 0",100:by+"% 0"}})
+                }
+            //Scroll Down
+            }else if(direct[0][0] < direct[0][1]){
+                if(b0.top > 0 && index1[0] == 0){
+                    var by = float * 1
+                    index1[0] = by;
+                    index[0] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{100:"0 0",0:by+"% 0"}})
+                }
+                if(b1.top > 0 && index1[1] == 0){
+                    var by = float * 2
+                    index1[1] = by;
+                    index[1] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{100:index[0]+"% 0",0:by+"% 0"}})
+                }
+                if(b2.top > 0 && index1[2] == 0){
+                    var by = float * 3
+                    index1[2] = by;
+                    index[2] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{100:index[1]+"% 0",0:by+"% 0"}})
+                }
+                if(b3.top > 0 && index1[3] == 0){
+                    var by = float * 4
+                    index1[3] = by;
+                    index[3] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{100:index[2]+"% 0",0:by+"% 0"}})
+                }
+                if(b4.top > 0 && index1[4] == 0){
+                    var by = float * 5
+                    index1[4] = by;
+                    index[4] = 0;
+                    $j(".inline").animate({time:500,type:"position",tween:{100:index[3]+"% 0",0:by+"% 0"}})
+                }
+            }            
+            
+        }else{
+            console.log(scroll.y)
+            $j("#holder").class("remove","fixed").class("add","notFixed");
+        }
+    })
+    
+})
+
+</script>
+</head>
+<body style="margin:0px; padding:0px;">
+    <video autoplay muted style="width:100%;" id="vid">
+        <source src="mp4/Morning-Routine.mp4" type="video/mp4">
+        <source src="webm/Morning-Routine.webm" type="video/webm">
+    </video>
+
+    <div id="how_does_it_work">
+        How does it work?
+    </div>
+    <div id="holder" class="notFixed">
+        <div class="cell">
+            <div class="inline"></div>
+        </div>
+    </div>
+    <div id="holder_left">
+        <div class="head">It does this 1</div>
+        <div class="body">
+            Lorem ipsum dolor sit amet, zril cetero pro ad, eros dolor euismod sit ut. 
+            Utamur honestatis comprehensam ea quo, ad cum cibo altera. Sea nisl populo 
+            dissentiunt ei, mei probo scriptorem ei. Pro brute suscipiantur 
+            necessitatibus eu, an pri vide option qualisque. Ex sed sonet omnes pericula, 
+            ad nam soleat eloquentiam.
+        </div>
+        <div class="head">It does this 2</div>
+        <div class="body">
+            Lorem ipsum dolor sit amet, zril cetero pro ad, eros dolor euismod sit ut. 
+            Utamur honestatis comprehensam ea quo, ad cum cibo altera. Sea nisl populo 
+            dissentiunt ei, mei probo scriptorem ei. Pro brute suscipiantur 
+            necessitatibus eu, an pri vide option qualisque. Ex sed sonet omnes pericula, 
+            ad nam soleat eloquentiam.
+        </div>
+        <div class="head">It does this 3</div>
+        <div class="body">
+            Lorem ipsum dolor sit amet, zril cetero pro ad, eros dolor euismod sit ut. 
+            Utamur honestatis comprehensam ea quo, ad cum cibo altera. Sea nisl populo 
+            dissentiunt ei, mei probo scriptorem ei. Pro brute suscipiantur 
+            necessitatibus eu, an pri vide option qualisque. Ex sed sonet omnes pericula, 
+            ad nam soleat eloquentiam.
+        </div>
+        <div class="head">It does this 4</div>
+        <div class="body">
+            Lorem ipsum dolor sit amet, zril cetero pro ad, eros dolor euismod sit ut. 
+            Utamur honestatis comprehensam ea quo, ad cum cibo altera. Sea nisl populo 
+            dissentiunt ei, mei probo scriptorem ei. Pro brute suscipiantur 
+            necessitatibus eu, an pri vide option qualisque. Ex sed sonet omnes pericula, 
+            ad nam soleat eloquentiam.
+        </div>
+        <div class="head">It does this 5</div>
+        <div class="body">
+            Lorem ipsum dolor sit amet, zril cetero pro ad, eros dolor euismod sit ut. 
+            Utamur honestatis comprehensam ea quo, ad cum cibo altera. Sea nisl populo 
+            dissentiunt ei, mei probo scriptorem ei. Pro brute suscipiantur 
+            necessitatibus eu, an pri vide option qualisque. Ex sed sonet omnes pericula, 
+            ad nam soleat eloquentiam.
+        </div>
+        <div class="head">It does this 6</div>
+        <div class="body">
+            Lorem ipsum dolor sit amet, zril cetero pro ad, eros dolor euismod sit ut. 
+            Utamur honestatis comprehensam ea quo, ad cum cibo altera. Sea nisl populo 
+            dissentiunt ei, mei probo scriptorem ei. Pro brute suscipiantur 
+            necessitatibus eu, an pri vide option qualisque. Ex sed sonet omnes pericula, 
+            ad nam soleat eloquentiam.
+        </div>
+    </div>
+    <div id="footer">
+
+    </div>
+
+
+</body>
+</html>
